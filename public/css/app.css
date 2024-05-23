@@ -1,0 +1,66 @@
+nav li:last-child a {
+    
+    background-color: orange;
+    &:hover {
+        background-color: darkorange;
+
+    }
+}
+
+nav li a {
+    transition: .3s ;
+    &:hover {
+        color: orange;
+    }
+    
+    
+    
+}
+
+section.main {
+    background-color: rgb(244, 231, 219);
+}
+
+body{
+
+    height: auto;
+    
+}
+section.cart{
+    background-color: rgb(244, 231, 219);
+    min-height: calc(100vh - 86px);
+    .amount{
+        color: orange;
+    }
+    .btn{
+        background-color: orange;
+        &:hover{
+            background-color: darkorange;
+        }
+        transition: .3s;
+    }
+}
+
+section.firstcart{
+    transition: .3s;
+
+    &:hover{
+        background-color: darkorange;
+    }
+    
+    background-color: orange;
+    color: white;
+    font-weight: 500;
+}
+
+section.login{
+    background-color: rgb(244, 231, 219);
+    min-height: calc(100vh - 86px);
+    .signupbtn{
+        transition: .3s;
+        background-color: orange;
+        &:hover {
+            background-color: darkorange;
+        }
+    }
+}
