@@ -5,39 +5,53 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link
       href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css"
-      rel="stylesheet"
-    />
+      rel="stylesheet" />
     <link rel="stylesheet" href="/css/app.css" />
     <title>Pizzeria</title>
   </head>
+
   <body>
+
     <nav class="container mx-auto flex items-center justify-between py-4">
       <div>
         <a
-          href="/"
-          >
+          href="/">
           <img class="w-3/4 px-0 h-max ml-0"
-          src="/img/linkedin-company-logo-300x300.jpg"
-        
-          alt="Pizzeria"/>
+            src="/img/linkedin-company-logo-300x300.jpg"
+            alt="Pizzeria" />
         </a>
       </div>
       <div>
         <ul class="flex items-center">
-          <li class="ml-6"><a href="&">Menu</a></li>
+          <li class="ml-6"><a href="/">Home</a></li>
+          <li class="ml-6"><a href="/menu">Menu</a></li>
           <li class="ml-6"><a href="&">Offers</a></li>
+          <% if(user){ %>
+          <li class="ml-6"><form id="logout" action="/logout" method="POST">
+
+            <a onclick = "document.getElementById('logout').submit() "  href="" >Log out</a>
+          </form></li>
+          <% } else { %>
           <li class="ml-6"><a href='/register'>Register</a></li>
           <li class="ml-6"><a href='/login'>Login</a></li>
+          <% }%>
           <li class="ml-6">
-            <a href="/cart" class=" firstcart inline-block py-5 px-5 rounded-full">
-              <img src="/img/cart.png" alt="cart"
-            /></a>
+            <a href="/cart"
+              class=" flex firstcart inline-block py-5 px-5 rounded-full">
+              <span id="cartCounter"
+                class="font-bold text-white text-lg pr-2 justify-around "><%=
+                session.cart ? session.cart.totalQty : " "%></span>
+              <img src="/img/cart.png" alt="cart" /></a>
+
           </li>
         </ul>
       </div>
     </nav>
     <hr>
     <%- body %>
-    <script src="/src/app.js"></script>
+    <footer></footer>
+    <script> src = "/public/js/app.js"</script>
+
   </body>
+
 </html>

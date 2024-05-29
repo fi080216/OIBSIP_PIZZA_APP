@@ -1,16 +1,47 @@
+<section class="main">
+  <div class="py-16 container flex items-center justify-between mx-auto">
+    <div class="w-1/2">
+      <h6 class="text-6xl font-bold">Pizzeria</h6>
+      <h1 class="text-4xl font-bold"><em>"Craving Satisfaction, </em></h1>
+      <h1 class="text-4xl font-bold"><em>One Slice at a Time” </em></h1>
+    </div>
+    <div class="flex w-1/2">
+      <img  src="/img/hero-pizza.png" alt="Pizza" />
+    </div>
+  </div>
+</section>
 
-    
-    <section class="main">
-      <div class="py-16 container flex items-center justify-between mx-auto">
-        <div class="w-1/2">
-          <h6 class="text-6xl font-bold">Pizzeria</h6>
-          <h1 class="text-4xl font-bold"><em>"Craving Satisfaction, </em></h1>
-          <h1 class="text-4xl font-bold"><em>One Slice at a Time” </em></h1>
-        </div>
-        <div class="flex w-1/2">
-          <img src="/img/hero-pizza.png" alt="Pizza">
-        </div>
+<section>
+  
+  <div class="grid grid-cols-4 mt-4 row-gap-16 col-gap-12 mb-10 px-10">
+    <%pizzas.forEach(function(pizza){ %>
+        <div class="w-64">
+            <div>
+              <img
+                class="mb-4 h-40 mx-auto"
+                src="/img/<%=pizza.image%>"
+                alt="Pizza Crust "
+              />
+            </div>
+            <div class="text-center">
+              <h2 class="mb-2 text-lg text-center font-semibold mt-0"><%=pizza.name%></h2>
+              <span class="size py-1 px-4 rounded-full uppercase text-xs mx-auto"
+                ><%=pizza.size%></span
+              >
+              <div class="flex items-center justify-around mt-4">
+                <span class="font-bold text-lg">Rs <%=pizza.price %></span>
+                <button data-pizza = " <%=JSON.stringify(pizza)%>"
+                   class="proceed py-1 px-6 rounded-full text-white border-gray font-semibold flex item-center"
+                >
+                  Select
+                </button>
+              </div>
+            </div>
+          </div>
 
-      </div>
-    </section>
+
+    <%})%>
     
+  </div>
+  
+</section>

@@ -64,3 +64,22 @@ section.login{
         }
     }
 }
+
+.size{
+
+
+    background-color: rgb(236, 236, 236);
+}
+
+.proceed{
+
+    background-color: orange;
+    &:hover{
+        background-color: darkorange;
+        transition: .3s;
+        border: bold 1px;
+
+    }
+}
+
+
