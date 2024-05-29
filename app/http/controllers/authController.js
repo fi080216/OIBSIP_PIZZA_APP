@@ -15,6 +15,17 @@ function authController() {
     },
 
     postLogin(req, res, next) {
+
+      const { email, password } = req.body;
+      if (!email || !password) {
+        req.flash("err", "*Enter the required field ");
+        
+        
+        return res.redirect("/login");
+      }
+
+
+
       passport.authenticate("local", (err, user, info) => {
         if (err) {
           req.flash("err", info.message);

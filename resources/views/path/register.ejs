@@ -32,7 +32,7 @@
     </div>
 
     <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-      <form class="space-y-6" action="/register" method="POST">
+      <form class="space-y-6" action="/register" method="POST" novalidate >
         <% if(messages.err){ %>
         <span class="text-red-500 text-s"><%= messages.err%> </span>
 
@@ -42,17 +42,19 @@
           <label
             for="name"
             class="block text-sm font-medium leading-6 text-gray-900"
-            >Name</label
-          >
+            >Name</label>
+          
           <div class="mt-2">
             <input
               id="name"
               name="name"
-              placeholder=" Enter your name "
+              placeholder= " Enter your name "
+              
               type="text"
               autocomplete="name"
-              class="block w-full rounded-md border-2 py-1.75 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-              value="<%= messages.name %> "
+              value="<%= messages.name ? messages.name : '' %>"
+              class="block w-full rounded-md border-2 py-1.75 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 placeholder: focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+              
               />
           </div>
         </div>
@@ -70,7 +72,7 @@
               placeholder=" Enter you email address "
               type="email"
               autocomplete="email"
-              value="<%= messages.email %> "
+              value="<%= messages.email ? messages.email : '' %>"
               class="block w-full rounded-md border-2 py-1.75 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
             />
           </div>
