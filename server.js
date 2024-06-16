@@ -9,6 +9,8 @@ const session = require("express-session");
 const flash = require('express-flash');
 const MongoDbStore = require('connect-mongodb-session')(session)
 const passport = require('passport')
+const bodyParser = require('body-parser')
+// const app1 = require('./resources/js/app');
 
 
 
@@ -63,25 +65,36 @@ const passportInit = require('./app/config/passport')
 
 // app.use('connect-session')
 app.use(flash())
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.urlencoded({
   extended: false
 }))
 app.use(express.json())
-app.use(express.static("public"));
+app.use(express.static(path.join(__dirname, 'public')));
 
 app.use((req, res, next) => {
   res.locals.session = req.session
   res.locals.user = req.user
+  
 
   next()
 })
 
 app.use(expressLayout);
-app.set("views", path.join(__dirname, "/resources/views"));
+app.set("views", path.join(__dirname, '/resources/views'));
 app.set("view engine", "ejs");
 
 require("./routes/web")(app);
-// require('./public/js/app');
+
+
+
+
+
+
+
+
+
+
 
 
 app.listen(3300, () => {

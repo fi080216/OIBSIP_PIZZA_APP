@@ -1,27 +1,31 @@
-import axios from "axios";
+import {initAdmin} from './admin'
 
 function updateCart(pizza) {
   axios.post("/update-cart", pizza).then((res) => {
     cartCounter.innerText = res.data.totalQty;
-  });
+  })
 }
 
+
 let proceed = document.querySelectorAll('.proceed');
-// console.log("hi")
 let cartCounter = document.querySelector('#cartCounter');
 
-proceed.forEach((button) => {
-  btn.addEventListener('click', (e) => {
+
+
+proceed.forEach((btn) => {
   
-    let pizza = JSON.parse(btn.dataset.pizza)
-    updateCart(pizza)
-    console.log(e)
-  })
+  btn.addEventListener('click', (e) => {
     
+    let pizza = JSON.parse(btn.dataset.pizza);
+    updateCart(pizza);
     
-  })
+  });
+});
 
- 
-
-
-
+const alertMsg = document.getElementById('#success-alert')
+if(alertMsg){
+  setTimeout(() => {
+    alertMsg.remove()
+  }, 2000)
+}
+initAdmin()

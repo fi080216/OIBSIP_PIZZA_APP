@@ -18,7 +18,7 @@
         <div class="w-64">
             <div>
               <img
-                class="mb-4 h-40 mx-auto"
+                class=" mb-4 h-40 mx-auto"
                 src="/img/<%=pizza.image%>"
                 alt="Pizza Crust "
               />
@@ -30,8 +30,9 @@
               >
               <div class="flex items-center justify-around mt-4">
                 <span class="font-bold text-lg">Rs <%=pizza.price %></span>
-                <button data-pizza = " <%=JSON.stringify(pizza)%>"
+                <button   data-pizza = "<%=JSON.stringify(pizza)%>"
                    class="proceed py-1 px-6 rounded-full text-white border-gray font-semibold flex item-center"
+                  
                 >
                   Select
                 </button>
@@ -43,5 +44,10 @@
     <%})%>
     
   </div>
+
+
+
+
+  
   
 </section>

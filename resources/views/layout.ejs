@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang = "en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -40,7 +40,7 @@
               class=" flex firstcart inline-block py-5 px-5 rounded-full">
               <span id="cartCounter"
                 class="font-bold text-white text-lg pr-2 justify-around "><%=
-                session.cart ? session.cart.totalQty : " "%></span>
+                session.cart ? session.cart.totalQty : '' %></span>
               <img src="/img/cart.png" alt="cart" /></a>
 
           </li>
@@ -50,7 +50,8 @@
     <hr>
     <%- body %>
     <footer></footer>
-    <script> src = "/public/js/app.js"</script>
+    <script src = "/js/app.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
   </body>
 
