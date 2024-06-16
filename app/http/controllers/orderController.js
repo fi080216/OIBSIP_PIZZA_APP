@@ -6,8 +6,7 @@ function orderController() {
         store(req, res) {
             const { phone, address } = req.body;
 
-            // Log the request body for debugging
-            console.log('Request Body:', req.body);
+            
 
             // Check if phone and address are provided
             if (!phone || !address) {
@@ -32,7 +31,7 @@ function orderController() {
         .then((order) => {
             req.flash("success", "Order placed successfully !")
             delete req.session.cart
-          return res.redirect("/customer/orders");
+          return res.redirect("/customers/orders");
         })
         .catch((err) => {
           req.flash("err", "Something went wrong !");
