@@ -6,6 +6,7 @@ const auth = require('../app/http/middlewares/auth')
 const guest = require("../app/http/middlewares/guest");
 const AdminOrderController = require('../app/http/controllers/AdminOrderController')
 const admin = require('../app/http/middlewares/admin')
+const statusController = require('../app/http/controllers/statusController')
 
 function initRoutes(app) {
   app.get("/", homeController().index);
@@ -18,7 +19,12 @@ function initRoutes(app) {
   app.post("/update-cart", cartController().update);
   app.post("/orders", auth, orderController().store);
   app.get('/customers/orders', auth, orderController().index);
+  app.get('/customers/orders/:id', auth, orderController().show);
   app.get('/customers/adminOrder', admin, AdminOrderController().index);
+  app.post('/admin/order/status', admin, statusController().update);
+
 }
+
+
 
 module.exports = initRoutes;

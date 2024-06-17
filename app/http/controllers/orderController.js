@@ -1,3 +1,4 @@
+const order = require('../../models/order');
 const Order = require('../../models/order');
 const moment = require('moment')
 
@@ -31,6 +32,10 @@ function orderController() {
         .then((order) => {
             req.flash("success", "Order placed successfully !")
             delete req.session.cart
+
+            const eventEmitter = req.app.get("eventEmitter");
+      eventEmitter.emit("orderPlaced", order);
+
           return res.redirect("/customers/orders");
         })
         .catch((err) => {
@@ -45,6 +50,26 @@ function orderController() {
             }, null, {sort: {'createdAt': -1}})
             res.render('customers/orders', {orders: orders, moment: moment})
             // console.log(orders)
+        },
+
+        async show(req, res) {
+            try {
+                // Fetch the order by ID
+                const order = await Order.findById(req.params.id);
+                if (!order) {
+                    return res.status(404).send('Order not found');
+                }
+
+                // Authorize user
+                if (req.user._id.toString() === order.customerId.toString()) {
+                    return res.render('customers/singleOrder', { order });
+                }
+
+                // If user is not authorized, redirect to home
+                return res.redirect('/');
+            } catch (err) {
+                res.status(500).send(err);
+            }
         }
     };
 }
