@@ -2,6 +2,8 @@
 let proceed = document.querySelectorAll(".proceed");
 let cartCounter = document.querySelector("#cartCounter");
 
+
+
 function updateCart(pizza) {
   axios.post("/update-cart", pizza).then((res) => {
     cartCounter.innerText = res.data.totalQty;
@@ -64,6 +66,7 @@ socket.emit('join', `order_${order._id}`)
 let adminArea = window.location.pathname
 
 if(adminArea.includes('adminOrder')){
+  
   socket.emit('join', 'adminRoom')
 }
 

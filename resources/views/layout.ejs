@@ -13,8 +13,8 @@
 
   <body>
 
-    <nav class="container mx-auto flex items-center justify-between py-4">
-      <div>
+    <nav class="container mx-auto flex items-center justify-between py-2 ">
+      <div class="logo">
         <a
           href="/">
           <img class="w-3/4 px-0 h-max ml-0"
@@ -22,19 +22,19 @@
             alt="Pizzeria" />
         </a>
       </div>
-      <div>
+      <div class="nav2">
         <ul class="flex items-center">
-          <li class="ml-6"><a href="/">Home</a></li>
-          <li class="ml-6"><a href="/menu">Menu</a></li>
-          <li class="ml-6"><a href="&">Offers</a></li>
+          <li class="ml-6 font-semibold"><a href="/">Home</a></li>
+          <li class="ml-6 font-semibold"><a href="#menusection">Menu</a></li>
+          
           <% if(user){ %>
-          <li class="ml-6"><form id="logout" action="/logout" method="POST">
+          <li class="ml-6 font-semibold"><form id="logout" action="/logout" method="POST">
 
-            <a onclick = "document.getElementById('logout').submit() "  href="" >Log out</a>
+            <a onclick = "document.getElementById('logout').submit();  return false;"  href="" >Log out</a>
           </form></li>
           <% } else { %>
-          <li class="ml-6"><a href='/register'>Register</a></li>
-          <li class="ml-6"><a href='/login'>Login</a></li>
+          <li class="ml-6 font-semibold"><a href='/register'>Register</a></li>
+          <li class="ml-6 font-semibold"><a href='/login'>Login</a></li>
           <% }%>
           <li class="ml-6">
             <a href="/cart"
