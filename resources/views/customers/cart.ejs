@@ -1,6 +1,6 @@
 <section class="cart">
   <% if(session.cart) { %>
-  <div class="order container mx-auto xl:w-1/2  py-10 px-10 xl:px-0">
+  <div class="order container mx-auto xl:w-1/2 py-10 px-10 xl:px-0">
     <div class="flex items-center border-b border-gray">
       <img src="/img/cart-black.png" alt=" cart " />
       <h1 class="font-bold ml-4 text-2xl">Order Summary</h1>
@@ -31,7 +31,31 @@
 
       <% if(user) {%>
       <div class="py-4">
-        <form action="/orders" method="POST" class="mt-12">
+        <form action="/orders" method="POST" class="mt-12" id="payment_form">
+          <div class="relative w-1/2 ml-auto py-2">
+            <select
+              id="paymentType" name="paymentType"
+              class="block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded leading-tight focus:outline-none focus:shadow-outline"
+            >
+              <!-- <option>Choose payment type</option> -->
+              <option value="cod">Cash on delivery</option>
+              <option value="card">Card payment</option>
+            </select>
+            <div
+              class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700"
+            >
+              <svg
+                class="fill-current h-4 w-4"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 20 20"
+              >
+                <path
+                  d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"
+                />
+              </svg>
+            </div>
+          </div>
+
           <input
             class="border border-gray-400 p-2 w-1/2"
             type="text"
@@ -47,9 +71,10 @@
             placeholder="Address"
             id=""
           />
-
           <div>
-            <button type="submit"
+            <div id="card-element" class="mt-2"></div>
+            <button
+              type="submit"
               class="btn mt-2 text-white px-4 py-2 rounded-full font-bold"
             >
               Order Now
@@ -61,8 +86,9 @@
       <a
         href="/login"
         class="inline-block btn mt-2 text-white px-4 py-2 rounded-full font-bold"
-        >Login to continue</a>
-      
+        >Login to continue</a
+      >
+
       <% } %>
     </div>
   </div>
@@ -85,4 +111,107 @@
   </div>
 
   <% } %>
+
+  <script src="https://js.stripe.com/v3/"></script>
+  <script>
+    const stripe = Stripe(
+      "pk_test_51PV7hRE16fynCkKjKcyZEfeSmnPuY9lWcMQ2nTY2iLe3lsPId518uQbqmGFPQaR7RxftwClo1LGM3kA1YRImkRdK0014daXv8A"
+    );
+
+    let card = null;
+
+    const paymentType = document.querySelector("#paymentType");
+
+    paymentType.addEventListener("change", (e) => {
+      // console.log(e.target.value);
+
+      if (e.target.value === "card") {
+        // display card section
+
+        const elements = stripe.elements();
+
+        let style = {
+          base: {
+            color: "#32325d",
+            fontFamily: '"Helvetica Neue", Helvetica, sans-serif ',
+            fontSmoothing: "antialiased",
+            fontSize: "16px",
+            "::placeholder": {
+              color: "#aab7c4",
+            },
+          },
+          invalid: {
+            color: "#fa755a",
+            iconColor: "#fa755a",
+          },
+        };
+
+        card = elements.create("card", { style, hidePostalCode: true });
+        card.mount("#card-element");
+      } else {
+        // display nothing
+        card.destroy();
+      }
+    });
+
+    document.addEventListener("DOMContentLoaded", () => {
+      const paymentForm = document.querySelector("#payment_form");
+
+      if (paymentForm) {
+        paymentForm.addEventListener("submit", (e) => {
+         
+          e.preventDefault();
+          let formData = new FormData(paymentForm);
+          let formObject = {};
+          for (let [key, value] of formData.entries()) {
+            formObject[key] = value;
+          }
+          //verify card
+
+          if (!card) {
+            console.log("card not found")
+            axios
+              .post("/orders", formObject)
+              .then((res) => {
+                console.log('Response recieved:', res.data);
+                window.location.href = "/customers/orders";
+              })
+              .catch((err) => {
+               console.log("error")
+              });
+              console.log(formObject)
+            return;
+            
+          }
+
+          stripe
+            .createToken(card)
+            .then((result) => {
+              console.log("card found")
+              console.log(result);
+              formObject.stripeToken = result.token.id;
+              axios
+              .post("/orders", formObject)
+              .then((res) => {
+                console.log(res.data);
+                window.location.href = "/customers/orders";
+              })
+              .catch((err) => {
+               console.log(err)
+              });
+              
+              
+            })
+            .catch((err) => {
+              console.log(err);
+            });
+
+          console.log(formObject);
+        });
+      }
+      // } else {
+      //     console.log('Element with ID "payment_form" not found');
+      // }
+    });
+  </script>
 </section>

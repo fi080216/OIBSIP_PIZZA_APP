@@ -1,4 +1,6 @@
 
+
+
 let proceed = document.querySelectorAll(".proceed");
 let cartCounter = document.querySelector("#cartCounter");
 
@@ -54,6 +56,16 @@ function updateStatus(order){
 
 }
 updateStatus(order);
+
+
+
+
+
+
+
+
+
+
 
 
 let socket = io()
